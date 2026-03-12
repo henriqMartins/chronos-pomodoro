@@ -3,8 +3,6 @@ import './styles/global.css';
 import './styles/theme.css';
 
 export function App() {
-  console.log('oi');
-
   return (
     <>
       <Heading className="heading">Ola mundo do app</Heading>
