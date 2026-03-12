@@ -7,9 +7,9 @@ export function App() {
 
   return (
     <>
-      <Heading />
+      <Heading className="heading">Ola mundo do app</Heading>
       <div>
-        <h1>Ola mundo do app</h1>;
+        <h1>Ola mundo do app</h1>
       </div>
     </>
   );
