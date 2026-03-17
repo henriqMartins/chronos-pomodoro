@@ -1,4 +1,3 @@
-import { Form } from 'lucide-react';
 import { Container } from './components/Container';
 import { CountDown } from './components/CountDown';
 import { Logo } from './components/Logo';
@@ -6,6 +5,7 @@ import { Menu } from './components/Menu';
 
 import './styles/global.css';
 import './styles/theme.css';
+import { DefaultInput } from './components/DefaultInput';
 
 export function App() {
   return (
@@ -23,25 +23,28 @@ export function App() {
       </Container>
 
       <Container>
-        <form className='form'>  
-        <div className='formRow'> 
-          <label htmlFor="input">task</label>
-          <input id='input'type='text' />
-        </div>
+        <form className="form">
+          <div className="formRow">
+            <DefaultInput
+              id="meuInput"
+              type="text"
+              labeltext="task"
+              placeholder="Escreve ai"
+            />
+          </div>
 
-        <div className='formRow'> 
-          <p>Lorem ipsum dolor sit amet.</p>
-        </div>
+          <div className="formRow">
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
 
-        <div className='formRow'> 
-          <p>Ciclos</p>
-          <p>0 0 0 0</p>
-        </div>
+          <div className="formRow">
+            <p>Ciclos</p>
+            <p>0 0 0 0</p>
+          </div>
 
-        <div className='formRow'> 
-          <button>Enviar</button>
-        </div>
-
+          <div className="formRow">
+            <button>Enviar</button>
+          </div>
         </form>
       </Container>
     </>
