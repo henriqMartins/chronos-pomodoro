@@ -3,6 +3,7 @@ import { CountDown } from './components/CountDown';
 import { Logo } from './components/Logo';
 import { Menu } from './components/Menu';
 import { Cycles } from './Cycles';
+import { Footer } from './components/Footer';
 
 import './styles/global.css';
 import './styles/theme.css';
@@ -48,6 +49,10 @@ export function App() {
             <DefaultButton icon={<PlayCircleIcon/>} color='red'/>
           </div>
         </form>
+      </Container>
+
+      <Container>
+        <Footer />
       </Container>
     </>
   );
