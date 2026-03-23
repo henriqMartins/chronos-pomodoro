@@ -1,20 +1,76 @@
-import { HistoryIcon, HouseIcon, SettingsIcon, SunIcon, TimerIcon } from 'lucide-react';
+import {
+  HistoryIcon,
+  HouseIcon,
+  MoonIcon,
+  SettingsIcon,
+  SunIcon,
+  TimerIcon,
+} from 'lucide-react';
 import styles from './styles.module.css';
+import { useState, useEffect } from 'react';
+
+type AvaiableThemes = 'light' | 'dark';
 
 export function Menu() {
+  const [theme, setTheme] = useState<AvaiableThemes>(() => {
+    const storageTheme = localStorage.getItem("theme") as AvaiableThemes || "dark";
+    return storageTheme;
+  });
+
+  const nextThemeIcon = {
+    light: <MoonIcon />,
+    dark: <SunIcon />
+  }
+
+  function handlesThemeChange(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    event.preventDefault(); // Evita o comportamento padrão do link
+
+    setTheme(prevTheme => {
+      const nextTheme = prevTheme === 'dark' ? 'light' : 'dark';
+      return nextTheme;
+      }
+    );
+  }
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
     <nav className={styles.menu}>
-      <a className={styles.menuLink} href="#">
+      <a
+        className={styles.menuLink}
+        href="#"
+        aria-label="Ir para a home"
+        title="Ir para a home"
+      >
         <HouseIcon />
       </a>
-      <a className={styles.menuLink} href="#">
+      <a
+        className={styles.menuLink}
+        href="#"
+        aria-label="Ir para o histórico"
+        title="Ir para o histórico"
+      >
         <HistoryIcon />
       </a>
-      <a className={styles.menuLink} href="#">
+      <a
+        className={styles.menuLink}
+        href="#"
+        aria-label="Ir para as configurações"
+        title="Ir para as configurações"
+      >
         <SettingsIcon />
       </a>
-      <a className={styles.menuLink} href="#">
-        <SunIcon />
+      <a
+        className={styles.menuLink}
+        href="#"
+        aria-label="Ir para o modo claro"
+        title="Ir para o modo claro"
+        onClick={handlesThemeChange}
+      >
+        {nextThemeIcon[theme]}
       </a>
     </nav>
   );

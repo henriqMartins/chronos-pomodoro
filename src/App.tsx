@@ -13,25 +13,9 @@ import { PlayCircleIcon } from 'lucide-react';
 import { Heading } from './components/Heading';
 import { useState } from 'react';
 
-export function App() {
-
-  // const [numero, setNumero] = useState(() => {
-  //   console.log('Inicializando o estado');
-  //   return 0;
-  // });
-
-  const [numero, setNumero] = useState(0);
-
-  function handleClick() {
-    // setNumero(prevState => prevState + 1);
-    setNumero(numero + 1);
-  }
-  
+export function App() {  
   return (
     <>
-      <Heading>Número: {numero}</Heading>
-      <button onClick={handleClick}>Aumenta</button>
-
       <Container>
         <Logo />
       </Container>
@@ -50,7 +34,7 @@ export function App() {
             <DefaultInput
               id="meuInput"
               type="text"
-              labeltext={numero.toString()}
+              labeltext="task"
               placeholder="Escreve ai"
             />
           </div>
