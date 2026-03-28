@@ -11,4 +11,4 @@ export type TaskStateModel = {
         breakTime: number; // em segundos
         longBreakTime: number; // em segundos
     }
-}
+} 
