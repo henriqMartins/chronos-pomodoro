@@ -52,6 +52,25 @@ export function MainForm() {
       };
     });
   }
+
+  function handleStopTask() {
+
+    setState(prevState => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
+        tasks: prevState.tasks.map(task => {
+          if (prevState.activeTask && task.id === task.id) {
+          return {...task, interruptDate: Date.now() };
+          }
+          return task;
+        })
+      };
+    });
+  }
+
   return (
     <form onSubmit={handleCreateNewTask} className="form">
       <div className="formRow">
@@ -76,20 +95,25 @@ export function MainForm() {
       )}
 
       <div className="formRow">
-        {!state.activeTask ? (
+        {!state.activeTask && (
           <DefaultButton
             aria-label="iniciar nova tarefa"
             title="inciar nova tarefa"
             type="submit"
             icon={<PlayCircleIcon />}
+            key='submit button'
           />
-        ) : (
+        )} 
+        
+        {!!state.activeTask && (
           <DefaultButton
             aria-label="parar nova tarefa"
             title="parar nova tarefa"
             type="button"
             color="red"
             icon={<StopCircleIcon />}
+            onClick={handleStopTask}
+            key="action button(doesn't send form"
           />
         )}
       </div>
