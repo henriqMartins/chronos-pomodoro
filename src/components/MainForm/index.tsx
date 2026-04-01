@@ -1,4 +1,4 @@
-import { PlayCircleIcon } from 'lucide-react';
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
 import { Cycles } from '../Cycles';
@@ -61,6 +61,7 @@ export function MainForm() {
           labeltext="task"
           placeholder="Escreve ai"
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
 
@@ -69,13 +70,28 @@ export function MainForm() {
       </div>
 
       {state.currentCycle > 0 && (
-      <div className="formRow">
-        <Cycles />
-      </div>
+        <div className="formRow">
+          <Cycles />
+        </div>
       )}
 
       <div className="formRow">
-        <DefaultButton icon={<PlayCircleIcon />} color="red" />
+        {!state.activeTask ? (
+          <DefaultButton
+            aria-label="iniciar nova tarefa"
+            title="inciar nova tarefa"
+            type="submit"
+            icon={<PlayCircleIcon />}
+          />
+        ) : (
+          <DefaultButton
+            aria-label="parar nova tarefa"
+            title="parar nova tarefa"
+            type="button"
+            color="red"
+            icon={<StopCircleIcon />}
+          />
+        )}
       </div>
     </form>
   );
