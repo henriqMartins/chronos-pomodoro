@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local config overrides
+*.local
+*.local.*
+*.config.local.*
+tsconfig.local.json
+vite.config.local.ts
