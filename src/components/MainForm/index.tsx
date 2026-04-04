@@ -40,12 +40,6 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
-
-    const worker = new Worker(
-      new URL('../../workers/taskTimerWorker.ts', import.meta.url),
-    );
-
-    worker.postMessage("Ola mundo");
   }
 
   function handleStopTask() {

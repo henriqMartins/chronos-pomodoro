@@ -4,11 +4,18 @@ export enum TaskActionTypes {
   START_TASK = 'START_TASK',
   INTERRUPT_TASK = 'INTERRUPT_TASK',
   RESET_TASK = 'RESET_TASK',
+  COUNT_DOWN = 'COUNT_DOWN',
+  COMPLETE_TASK = 'COMPLETE_TASK',
 }
-export type TaskWithPayload = {
-  type: TaskActionTypes.START_TASK;
-  payload: TaskModel;
-};
+export type TaskWithPayload =
+  | {
+      type: TaskActionTypes.START_TASK;
+      payload: TaskModel;
+    }
+  | {
+      type: TaskActionTypes.COUNT_DOWN;
+      payload: { seconsRemaining: number };
+    };
 
 export type TaskWithoutPayload =
   | {
@@ -16,8 +23,9 @@ export type TaskWithoutPayload =
     }
   | {
       type: TaskActionTypes.RESET_TASK;
+    }
+  | {
+      type: TaskActionTypes.COMPLETE_TASK;
     };
 
-    export type TaskActionModel = 
-    | TaskWithPayload
-    | TaskWithoutPayload;
+export type TaskActionModel = TaskWithPayload | TaskWithoutPayload;
