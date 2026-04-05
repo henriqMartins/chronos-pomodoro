@@ -4,49 +4,51 @@ import {
   MoonIcon,
   SettingsIcon,
   SunIcon,
-  TimerIcon,
 } from 'lucide-react';
 import styles from './styles.module.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 
 type AvaiableThemes = 'light' | 'dark';
 
 export function Menu() {
   const [theme, setTheme] = useState<AvaiableThemes>(() => {
-    const storageTheme = localStorage.getItem("theme") as AvaiableThemes || "dark";
+    const storageTheme =
+      (localStorage.getItem('theme') as AvaiableThemes) || 'dark';
     return storageTheme;
   });
 
   const nextThemeIcon = {
     light: <MoonIcon />,
-    dark: <SunIcon />
-  }
+    dark: <SunIcon />,
+  };
 
-  function handlesThemeChange(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  function handlesThemeChange(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) {
     event.preventDefault(); // Evita o comportamento padrão do link
 
     setTheme(prevTheme => {
       const nextTheme = prevTheme === 'dark' ? 'light' : 'dark';
       return nextTheme;
-      }
-    );
+    });
   }
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem("theme", theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (
     <nav className={styles.menu}>
-      <a
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/"
         aria-label="Ir para a home"
         title="Ir para a home"
       >
         <HouseIcon />
-      </a>
+      </Link>
       <a
         className={styles.menuLink}
         href="#"
