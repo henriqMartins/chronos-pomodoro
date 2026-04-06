@@ -11,9 +11,11 @@ import { getTaskStatus } from '../../utils/getTaskStatus';
 import { useEffect, useState } from 'react';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { showMessage } from '../../adapters/showMessage';
 
 export function History() {
   const { state, dispatch } = useTaskContext();
+  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
   const hasTasks = state.tasks.length > 0;
 
   const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(
@@ -25,6 +27,31 @@ export function History() {
       };
     },
   );
+
+  useEffect(() => {
+    setSortTasksOptions(prevState => ({
+      ...prevState,
+      tasks: sortTasks({
+        tasks: state.tasks,
+        direction: prevState.direction,
+        field: prevState.field,
+      }),
+    }));
+  }, [state.tasks]);
+
+  useEffect(() => {
+    if (!confirmClearHistory) return;
+
+    setConfirmClearHistory(false);
+
+    dispatch({ type: TaskActionTypes.RESET_TASK });
+  }, [confirmClearHistory, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      showMessage.dismiss();
+    };
+  }, []);
 
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
     const newDirection = sortTasksOptions.direction === 'desc' ? 'asc' : 'desc';
@@ -41,21 +68,14 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm('Tem certeza')) return;
-
-    dispatch({ type: TaskActionTypes.RESET_TASK });
+    showMessage.dismiss();
+    showMessage.confirm(
+      'Tem certeza que deseja apagar todo o histórico? Essa ação não pode ser desfeita.',
+      confirmation => {
+        setConfirmClearHistory(confirmation);
+      },
+    );
   }
-
-  useEffect(() => {
-    setSortTasksOptions(prevState => ({
-      ...prevState,
-      tasks: sortTasks({
-        tasks: state.tasks,
-        direction: prevState.direction,
-        field: prevState.field,
-      }),
-    }));
-  }, [state.tasks]);
 
   return (
     <MainTemplate>
